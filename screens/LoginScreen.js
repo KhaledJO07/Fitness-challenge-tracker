@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
+import { API_BASE_URL_JO } from '../config';
+
 
 export default function LoginScreen({ navigation, ...others }) {
   const [email, setEmail] = useState('');
@@ -20,7 +22,7 @@ export default function LoginScreen({ navigation, ...others }) {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      await axios.post('http://192.168.10.58:3000/users/login', {
+      await axios.post(`${API_BASE_URL_JO}:3000/users/login`, {
         email,
         password,
       });

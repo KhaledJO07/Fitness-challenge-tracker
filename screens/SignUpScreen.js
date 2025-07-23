@@ -13,6 +13,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
+import { API_BASE_URL_JO } from '../config';
 
 export default function SignUpScreen({ navigation, ...others }) {
   const SignupSchema = Yup.object().shape({
@@ -25,7 +26,7 @@ export default function SignUpScreen({ navigation, ...others }) {
 
   const handleSignup = async (values, { setSubmitting }) => {
     try {
-      await axios.post('http://192.168.10.58:3000/users/signup', {
+      await axios.post(`${API_BASE_URL_JO}:3000/users/signup`, {
         email: values.email,
         password: values.password,
       });
