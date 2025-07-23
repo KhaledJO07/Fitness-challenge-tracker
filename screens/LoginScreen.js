@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import axios from 'axios';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function LoginScreen({ navigation, ...others }) {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ export default function LoginScreen({ navigation, ...others }) {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const res = await axios.post('http://192.168.10.58:3000/users/login', {
+      await axios.post('http://192.168.10.58:3000/users/login', {
         email,
         password,
       });
@@ -55,18 +56,34 @@ export default function LoginScreen({ navigation, ...others }) {
         onChangeText={setPassword}
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>Login</Text>
-        )}
+      <TouchableOpacity
+        onPress={handleLogin}
+        disabled={loading}
+        activeOpacity={0.8}
+        style={{ borderRadius: 8, overflow: 'hidden', marginTop: 10 }}
+      >
+        <LinearGradient
+          colors={['#22c55e', '#3b82f6']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.button}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>Login</Text>
+          )}
+        </LinearGradient>
       </TouchableOpacity>
 
       <Text style={styles.switchText}>
         Don't have an account?
-        <Text onPress={() => navigation.navigate('SignUp')} style={styles.linkText}>
-          {' '}Sign up
+        <Text
+          onPress={() => navigation.navigate('SignUp')}
+          style={styles.linkText}
+        >
+          {' '}
+          Sign up
         </Text>
       </Text>
     </KeyboardAvoidingView>
@@ -75,7 +92,12 @@ export default function LoginScreen({ navigation, ...others }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 24 },
-  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 24, textAlign: 'center' },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
   input: {
     height: 50,
     borderColor: '#ccc',
@@ -85,11 +107,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   button: {
-    backgroundColor: '#1e90ff',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 10,
   },
   buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
   switchText: { textAlign: 'center', marginTop: 20, fontSize: 14 },

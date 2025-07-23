@@ -12,6 +12,7 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function SignUpScreen({ navigation, ...others }) {
   const SignupSchema = Yup.object().shape({
@@ -69,7 +70,9 @@ export default function SignUpScreen({ navigation, ...others }) {
               onBlur={handleBlur('email')}
               value={values.email}
             />
-            {touched.email && errors.email && <Text style={styles.error}>{errors.email}</Text>}
+            {touched.email && errors.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
 
             <TextInput
               style={styles.input}
@@ -96,15 +99,23 @@ export default function SignUpScreen({ navigation, ...others }) {
             )}
 
             <TouchableOpacity
-              style={styles.button}
               onPress={handleSubmit}
               disabled={isSubmitting}
+              activeOpacity={0.8}
+              style={{ borderRadius: 8, overflow: 'hidden', marginTop: 10 }}
             >
-              {isSubmitting ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={styles.buttonText}>Sign Up</Text>
-              )}
+              <LinearGradient
+                colors={['#22c55e', '#3b82f6']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={styles.button}
+              >
+                {isSubmitting ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>Sign Up</Text>
+                )}
+              </LinearGradient>
             </TouchableOpacity>
           </>
         )}
@@ -113,7 +124,8 @@ export default function SignUpScreen({ navigation, ...others }) {
       <Text style={styles.switchText}>
         Already have an account?
         <Text onPress={() => navigation.goBack()} style={styles.linkText}>
-          {' '}Login
+          {' '}
+          Login
         </Text>
       </Text>
     </KeyboardAvoidingView>
@@ -122,7 +134,12 @@ export default function SignUpScreen({ navigation, ...others }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 24 },
-  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 24, textAlign: 'center' },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
   input: {
     height: 50,
     borderColor: '#ccc',
@@ -133,11 +150,9 @@ const styles = StyleSheet.create({
   },
   error: { color: 'red', fontSize: 13, marginBottom: 10 },
   button: {
-    backgroundColor: '#1e90ff',
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 10,
   },
   buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
   switchText: { textAlign: 'center', marginTop: 20, fontSize: 14 },
