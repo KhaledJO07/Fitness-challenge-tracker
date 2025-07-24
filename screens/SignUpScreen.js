@@ -26,7 +26,7 @@ export default function SignUpScreen({ navigation, ...others }) {
 
   const handleSignup = async (values, { setSubmitting }) => {
     try {
-      await axios.post(`${API_BASE_URL_JO}:3000/users/signup`, {
+      await axios.post(`${API_BASE_URL_JO}/users/signup`, {
         email: values.email,
         password: values.password,
       });

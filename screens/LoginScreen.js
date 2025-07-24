@@ -22,7 +22,7 @@ export default function LoginScreen({ navigation, ...others }) {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      await axios.post(`${API_BASE_URL_JO}:3000/users/login`, {
+      await axios.post(`${API_BASE_URL_JO}/users/login`, {
         email,
         password,
       });

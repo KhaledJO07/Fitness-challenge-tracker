@@ -28,7 +28,7 @@ export default function ProfileScreen({ token }) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${API_BASE_URL_JO}:3000/users/profile`, {
+      .get(`${API_BASE_URL_JO}/users/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -77,7 +77,7 @@ export default function ProfileScreen({ token }) {
         });
       }
 
-      await axios.put(`${API_BASE_URL_JO}:3000/users/profile`, formData, {
+      await axios.put(`${API_BASE_URL_JO}/users/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -94,7 +94,7 @@ export default function ProfileScreen({ token }) {
 
   const getProfileImageSource = () => {
     if (imageUri) return { uri: imageUri };
-    if (profile.avatarUrl) return { uri: `${API_BASE_URL_JO}:3000${profile.avatarUrl}` };
+    if (profile.avatarUrl) return { uri: `${API_BASE_URL_JO}${profile.avatarUrl}` };
     return require('../assets/images/default-user.png');
   };
 

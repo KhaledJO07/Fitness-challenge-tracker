@@ -6,6 +6,8 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
+const path = require('path');
+
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Mongo connected'))
